@@ -14,7 +14,7 @@ public class Server {
 			while (true)
 			{
 				client = ssock.accept();
-				dosomething(); //geil
+				dosomething(); //geil, geil
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
