@@ -30,6 +30,7 @@ public class ProcessClient implements Runnable {
 			pw.println("1 = Tiefensuche");
 			pw.println("2 = Breitensuche");
 			pw.println("3 = Dijkstra Algorithmus");
+			pw.flush();
 			String line;
 			while((line=br.readLine()) != null) {
 				String[] array = line.split(" ");
@@ -50,6 +51,7 @@ public class ProcessClient implements Runnable {
 				else {
 					pw.println("Falsche Eingabe!");
 				}
+				pw.flush();
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
