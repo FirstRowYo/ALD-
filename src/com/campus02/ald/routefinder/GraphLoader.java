@@ -109,5 +109,12 @@ public class GraphLoader {
 		ctree.printTree();
 		stree.printTree();
 	}
+	public int checkTree(String start, String target)
+	{
+		if (((ctree.find(start)) != null && (ctree.find(target)) != null))
+			return 1;
+		else 
+			return 0;	
+	}
 
 }

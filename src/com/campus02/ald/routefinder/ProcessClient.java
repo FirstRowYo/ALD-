@@ -10,10 +10,14 @@ import java.net.Socket;
 public class ProcessClient implements Runnable {
 
 	private Socket client;
+	private GraphLoader gl;
 	
-	public ProcessClient(Socket client) {
+	public ProcessClient(Socket client,GraphLoader gl) {
 		super();
 		this.client = client;
+		this.gl = gl;
+		
+		
 	}
 
 	@Override
@@ -24,32 +28,35 @@ public class ProcessClient implements Runnable {
 			OutputStreamWriter osw = new OutputStreamWriter(client.getOutputStream());
 			PrintWriter pw = new PrintWriter(osw);
 			) {
-			pw.println("Hallo");
-			pw.println("Bitte geben Sie einen Start- und Zielpunt ein und");
-			pw.println("welchen Suchalgorithmus Sie verwenden wollen:");
-			pw.println("1 = Tiefensuche");
-			pw.println("2 = Breitensuche");
-			pw.println("3 = Dijkstra Algorithmus");
-			pw.flush();
+			sendGreeting(pw);
 			String line;
 			while((line=br.readLine()) != null) {
 				String[] array = line.split(" ");
-				if(array.length == 3) {
-					if(Integer.parseInt(array[2]) == 1) {
+				
+				if(array.length == 3) 
+				{
+					if ((checkNode(array[0],array[1])) != 0){
+					if(Integer.parseInt(array[2]) == 1) 
+					{
 						//hier wird Tiefensuche aufgerufen
 					}
-					if(Integer.parseInt(array[2]) == 2) {
+					else if(Integer.parseInt(array[2]) == 2) 
+					{
 						//hier wird Breitensuche aufgerufen
 					}
-					if(Integer.parseInt(array[2]) == 3) {
+					else if(Integer.parseInt(array[2]) == 3) 
+					{
 						//hier wird Dijkstra aufgerufen
 					}
 					else {
-						pw.println("Falsche Eingabe!");
+						pw.println("Kein gueltiger Algorythus ausgewählt! Bitte neu waehlen! ");
+					}}
+					else {
+						pw.println("Ziel Nicht vorhanden, bitte neues Ziel waehlen.");
 					}
 				}
 				else {
-					pw.println("Falsche Eingabe!");
+					pw.println("Ungueltiges Befehlsformat!");
 				}
 				pw.flush();
 			}
@@ -59,5 +66,21 @@ public class ProcessClient implements Runnable {
 		}
 		
 	}
+
+	private int checkNode(String start, String target) {
+		return gl.checkTree(start, target);
+	}
+
+	private void sendGreeting(PrintWriter pw) {
+		pw.println("Hallo");
+		pw.println("Bitte geben Sie einen Start- und Zielpunt ein und");
+		pw.println("welchen Suchalgorithmus Sie verwenden wollen:");
+		pw.println("1 = Tiefensuche");
+		pw.println("2 = Breitensuche");
+		pw.println("3 = Dijkstra Algorithmus");
+		pw.flush();
+	}
+	
+	
 
 }

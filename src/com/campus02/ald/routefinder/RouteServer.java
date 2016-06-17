@@ -15,7 +15,7 @@ public class RouteServer {
 			) {
 			while(true) {
 				Socket client = server.accept();
-				ProcessClient pc = new ProcessClient(client);
+				ProcessClient pc = new ProcessClient(client,gl);
 				
 				Thread t = new Thread(pc);
 				t.start();
