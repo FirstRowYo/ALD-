@@ -1,43 +1,44 @@
 package com.campus02.ald.routefinder;
 
-public class CityTree {
 	
-	public abstract class BaseTree<Type> {
+	public abstract class BaseTree<Key,Value> {
 
 		/**
 		 * Wurzel des Baums (Startknoten)
 		 */
-		protected Node<Type> root;
+		protected Node<Key,Value> root;
 
 		/**
 		 * Wurzel auslesen
 		 * @return
 		 */
-		public Node<Type> getRoot() {
+		public Node<Key,Value> getRoot() {
 			return root;
 		}
 
 		/** 
 		 * Methode zum Vergleich zweier Elemente für die innere Ordnung des Baums
-		 * @param a Erstes Element
-		 * @param b Zweites Element
+		 * @param needle Erstes Element
+		 * @param type Zweites Element
 		 * @return <0, wenn a<b | >0, wenn a>b | 0, wenn a=b
 		 */
-		protected abstract int compare(Type a, Type b);
+		protected abstract int compareKey(Key a, Key b);
+		protected abstract int compareValue(Value a, Value b);
 
+		
 		/**
 		 * Neues Element hinzufügen
 		 * @param elem Hinzuzufügendes Element
 		 */
-		public void add(Type elem) {
-			Node<Type> neu = new Node<Type>(elem);
+		public void add(Key key,Value value) {
+			Node<Key,Value> neu = new Node<Key,Value>(key, value);
 			if (root == null) {			// Fall 1: Baum ist leer
 				root = neu;
 				return;
 			}
-			Node<Type> node = root;				// Fall 2: Baum ist nicht leer
+			Node<Key,Value> node = root;				// Fall 2: Baum ist nicht leer
 			while (true) {
-				int vgl = compare(elem, node.getValue());
+				int vgl = compareValue(value,node.getValue());
 				if (vgl < 0) {					// kleiner
 					if (node.getLeft() == null) {
 						node.setLeft(neu);
@@ -65,7 +66,7 @@ public class CityTree {
 		 * @param needle Zu suchendes Element
 		 * @return Knoten des Elements
 		 */
-		public Node<Type> find(Type needle) {
+		public Node<Key,Value> find(Value needle) {
 			return find(root, needle);
 		}
 		
@@ -75,11 +76,11 @@ public class CityTree {
 		 * @param needle  Zu suchendes Element
 		 * @return Knoten des Elements
 		 */
-		public Node<Type> find(Node<Type> current, Type needle) {
+		public Node<Key,Value> find(Node<Key,Value> current, Value needle) {
 			if (current == null) {
 				return null;
 			}
-			int vgl = compare(needle, current.getValue());
+			int vgl = compareValue(needle, current.getValue());
 			if (vgl == 0) {		// Gefunden
 				return current;
 			}
@@ -90,7 +91,8 @@ public class CityTree {
 				return find(current.getRight(), needle);
 			}
 		}
-		
+	
+
 		/**
 		 * Funktion zur Ausgabe des gesamten Baums.
 		 */
@@ -103,15 +105,18 @@ public class CityTree {
 		 * @param current Knoten, dessen Teilbaum ausgegeben werden soll
 		 * @param prefix  Zur Einrückung
 		 */
-		public void printTree(Node<Type> current, String prefix) {
+		public void printTree(Node<Key,Value> current, String prefix) {
 			if (current == null) {
 				return;
 			}
-			System.out.println(prefix + current.getValue());
+			System.out.println(prefix + current.getValue() + current.getKey());
 			printTree(current.getLeft(), prefix + " L ");
 			printTree(current.getRight(), prefix + " R ");
 		}
 
-	}
+		protected int compare(Integer a, Integer b) {
+			// TODO Auto-generated method stub
+			return 0;
+		}
 
-}
+	}

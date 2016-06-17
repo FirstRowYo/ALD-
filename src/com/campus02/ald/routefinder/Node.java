@@ -1,64 +1,69 @@
 package com.campus02.ald.routefinder;
 
-	public class Node<Type> {
+	public class Node<Key,Value> {
 
 		/**
 		 * Linkes Kind
 		 */
-		protected Node<Type> left;
+		protected Node<Key,Value> left;
 		
 		/**
 		 * Rechtes Kind
 		 */
-		protected Node<Type> right;
+		protected Node<Key,Value> right;
 		
 		/**
 		 * Elternelement
 		 */
-		protected Node<Type> parent;
+		protected Node<Key,Value> parent;
 		
 		/**
 		 * Wert des Knotens, hier: String, der Wort enthält
 		 */
-		protected final Type value;
-
+		protected final Value value;
+		protected final Key key;
 
 		/**
 		 * Konstruktor
 		 * @param value Zu speichernder Wert
 		 */
-		public Node(Type value) {
+		public Node(Key key, Value value) {
 			this.value = value;
+			this.key = key;
 		}
 
-		public Node<Type> getLeft() {
+
+		public Node<Key,Value> getLeft() {
 			return left;
 		}
 
-		public void setLeft(Node<Type> left) {
+		public void setLeft(Node<Key,Value> left) {
 			this.left = left;
 		}
 
-		public Node<Type> getRight() {
+		public Node<Key,Value> getRight() {
 			return right;
 		}
 
-		public void setRight(Node<Type> right) {
+		public void setRight(Node<Key,Value> right) {
 			this.right = right;
 		}
 
-		public Node<Type> getParent() {
+		public Node<Key,Value> getParent() {
 			return parent;
 		}
 
-		public void setParent(Node<Type> parent) {
+		public void setParent(Node<Key,Value> parent) {
 			this.parent = parent;
 		}
 
-		public Type getValue() {
+		public Value getValue() {
 			return value;
 		}
 		
+		public Key getKey() {
+			return key;
+		}
 	}
 
 

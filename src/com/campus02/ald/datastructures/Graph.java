@@ -1,6 +1,9 @@
 package com.campus02.ald.datastructures;
 import java.util.List;
 
+/*
+ * Basis der Datenstrucktur Graph, wird von anderen Klassen extendet
+ */
 
 public abstract class Graph {
 	public abstract int numVertices();
