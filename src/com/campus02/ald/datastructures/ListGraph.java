@@ -5,11 +5,11 @@ import java.util.List;
 
 public class ListGraph extends Graph {
 
-	private ArrayList<WeightedEdge>[] graph;
-	private int numVertices;
-	private boolean directed;
+	private ArrayList<WeightedEdge>[] graph; //Liste der verbunden gewichteten Knoten
+	private int numVertices; //Anzahl der Knoten
+	private boolean directed; //gerichtet oder nicht, werden wir nicht verwenden
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked") //Konstruktor
 	public ListGraph(int numVertices, boolean directed) {
 		graph = new ArrayList[numVertices];
 		for (int i=0; i < numVertices; i++)
@@ -18,10 +18,12 @@ public class ListGraph extends Graph {
 		this.directed = directed;
 	}
 	
+	//Getter
 	public int numVertices() {
 		return numVertices;
 	}
-
+	
+	//Findet raus ob es zwischen u(AusgangsKnoten) und v(ZielKnoten) einen Weg gibt
 	private WeightedEdge findEdge(int u, int v) {
 		for (int i=0; i < graph[u].size(); i++) {
 			if (graph[u].get(i).vertex == v)
@@ -40,10 +42,12 @@ public class ListGraph extends Graph {
 		return pv.weight;
 	}
 
+	
 	public void addEdge(int u, int v) {
 		addEdge(u, v, 1);
 	}
 	
+	//neuen Weg zu einem Knoten hinzufügen
 	public void addEdge(int u, int v, int weight) {
 		WeightedEdge pv = new WeightedEdge(v, weight);
 		graph[u].add(pv);
