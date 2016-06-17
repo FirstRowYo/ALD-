@@ -22,22 +22,21 @@ public class GraphLoader {
 				return 1;
 			else 
 				return 0;}
+		@Override
 		protected int compareValue(String a, String b) {
-			// TODO Auto-generated method stub
 			return a.compareTo(b);}};
 	private BaseTree<String, Integer> stree = new BaseTree<String, Integer>() {
-				@Override
-				protected int compareKey(String a, String b) {
-					return a.compareTo(b);}
-				@Override
-				protected int compareValue(Integer a, Integer b) {
-					if (a<b)
-						return -1;
-					if (a>b)
-						return 1;
-					else 
-						return 0;}};
-	
+		@Override
+		protected int compareKey(String a, String b) {
+			return a.compareTo(b);}
+		@Override
+		protected int compareValue(Integer a, Integer b) {
+			if (a<b)
+				return -1;
+			if (a>b)
+				return 1;
+			else 
+				return 0;}};
 	
 	public GraphLoader(String path) 
 	{
@@ -54,8 +53,7 @@ public class GraphLoader {
 		{
 			String[]array=line.split(";");
 			String node = array[0];
-			if (ctree.find(node) == null){
-			counter++;}
+			if (ctree.find(node) == null){counter++;}
 			ctree.add(counter,node);
 			stree.add(node, counter);
 		}
