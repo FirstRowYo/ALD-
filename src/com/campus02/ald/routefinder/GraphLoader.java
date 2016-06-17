@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import com.campus02.ald.datastructures.ListGraph;
 import com.campus02.ald.datastructures.WeightedEdge;
 
+@SuppressWarnings("unused")
 public class GraphLoader {
 	
 	private File file;
@@ -41,10 +42,10 @@ public class GraphLoader {
 	public GraphLoader(String path) 
 	{
 		File file = new File(path);
-		buildTree();
+		buildTree(file);
 	}
 	
-	private void buildTree() {
+	private void buildTree(File file) {
 		try (BufferedReader br = new BufferedReader(new FileReader(file));)
 		{
 		String line;
@@ -101,6 +102,12 @@ public class GraphLoader {
 				e.printStackTrace();
 			}
 		return list.size();
+	}
+	
+	public void printTrees()
+	{
+		ctree.printTree();
+		stree.printTree();
 	}
 
 }

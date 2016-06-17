@@ -8,6 +8,8 @@ public class RouteServer {
 
 	public static void main(String[] args) {
 		
+		GraphLoader gl = new GraphLoader("E:\\Java\\temp.txt");
+		gl.printTrees();
 		try (
 			ServerSocket server = new ServerSocket(1111);
 			) {
