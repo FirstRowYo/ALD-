@@ -28,7 +28,9 @@ public class GraphLoader {
 			String line;
 			while((line=br.readLine()) != null) {
 				String[] array = line.split(";");
-				//zugreifen auf baum
+				int idStart = 1; //Methode(array[0]);
+				int idZiel = 2; //Methode(array[1]);
+				graph.addEdge(idStart, idZiel, Integer.parseInt(array[2]));
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
