@@ -8,7 +8,7 @@ public class RouteServer {
 
 	public static void main(String[] args) {
 		
-		GraphLoader gl = new GraphLoader("/temp/text.txt");
+		GraphLoader gl = new GraphLoader("Citylist.txt");
 		gl.printTrees();
 		try (
 			ServerSocket server = new ServerSocket(1111);
