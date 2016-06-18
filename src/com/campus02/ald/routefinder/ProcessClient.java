@@ -34,11 +34,14 @@ public class ProcessClient implements Runnable {
 				String[] array = line.split(" ");
 				
 				if(array.length == 3) 
-				{
+				{	
 					if ((checkNode(array[0],array[1])) != 0){
-					if(Integer.parseInt(array[2]) == 1) 
+						int start = gl.translateString(array[0]);
+						int target = gl.translateString(array[1]);
+					if(Integer.parseInt(array[2]) == 1) //array[2] Possition der Suchmethoden auswahl
 					{
 						//hier wird Tiefensuche aufgerufen
+						//tiefensuche(start, ziel, gl)
 					}
 					else if(Integer.parseInt(array[2]) == 2) 
 					{

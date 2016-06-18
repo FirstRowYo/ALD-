@@ -14,6 +14,7 @@ public class GraphLoader {
 	
 	private File file;
 	private ArrayList<String> list = new ArrayList<>();
+	private ListGraph graph;
 	
 	private BaseTree<Integer,String> ctree = new BaseTree<Integer,String>() 
 	{
@@ -47,6 +48,7 @@ public class GraphLoader {
 	{
 		File file = new File("Citylist.txt");
 		buildTree(file);
+		graph = loadGraph();
 	}
 	
 	private void buildTree(File file) {
@@ -69,7 +71,7 @@ public class GraphLoader {
 		
 	}
 
-	public void loadGraph() {
+	public ListGraph loadGraph() {
 		try (
 			FileReader fr = new FileReader(file);
 			BufferedReader br = new BufferedReader(fr);
@@ -82,11 +84,12 @@ public class GraphLoader {
 				int idZiel = ctree.find(array[1]).key; //findet Ziel Knoten ID
 				graph.addEdge(idStart, idZiel, Integer.parseInt(array[2])); //fuegen Verbindung ein in Graph
 			}
+			return graph;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		return null;
 	}
 	
 	public int getGraphSize() {
@@ -119,6 +122,11 @@ public class GraphLoader {
 			return 1;
 		else 
 			return 0;	
+	}
+	
+	public int translateString(String ort)
+	{
+		return ctree.find(ort).key;
 	}
 
 }
