@@ -15,7 +15,11 @@ public class GraphLoader {
 	private File file;
 	private ArrayList<String> list = new ArrayList<>();
 	private ListGraph graph;
-	
+		
+	public ListGraph getGraph() {
+		return graph;
+	}
+
 	private BaseTree<Integer,String> ctree = new BaseTree<Integer,String>() 
 	{
 		@Override
