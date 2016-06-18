@@ -14,7 +14,9 @@ public class GraphLoader {
 	
 	private File file;
 	private ArrayList<String> list = new ArrayList<>();
-	private BaseTree<Integer,String> ctree = new BaseTree<Integer,String>() {
+	
+	private BaseTree<Integer,String> ctree = new BaseTree<Integer,String>() 
+	{
 		@Override
 		protected int compareKey(Integer a, Integer b) {
 			if (a<b)
@@ -25,7 +27,9 @@ public class GraphLoader {
 				return 0;}
 		@Override
 		protected int compareValue(String a, String b) {
-			return a.compareTo(b);}};
+			return a.compareTo(b);}
+	};
+			
 	private BaseTree<String, Integer> stree = new BaseTree<String, Integer>() {
 		@Override
 		protected int compareKey(String a, String b) {
@@ -74,9 +78,9 @@ public class GraphLoader {
 			String line;
 			while((line=br.readLine()) != null) {
 				String[] array = line.split(";");
-				int idStart = ctree.find(array[0]).key; //Methode(array[0]); 
-				int idZiel = ctree.find(array[1]).key; //Methode(array[1]);
-				graph.addEdge(idStart, idZiel, Integer.parseInt(array[2]));
+				int idStart = ctree.find(array[0]).key; //findet Start Knoten ID
+				int idZiel = ctree.find(array[1]).key; //findet Ziel Knoten ID
+				graph.addEdge(idStart, idZiel, Integer.parseInt(array[2])); //fügen Verbindung ein in Graph
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
