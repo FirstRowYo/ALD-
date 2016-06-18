@@ -1,4 +1,4 @@
-package com.campus02.ald.routefinder;
+package com.gibbson.root.garbage;
 
 
 public class Waypoint {
