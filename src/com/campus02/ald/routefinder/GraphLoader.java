@@ -43,9 +43,9 @@ public class GraphLoader {
 			else 
 				return 0;}};
 	
-	public GraphLoader(String path) 
+	public GraphLoader() 
 	{
-		File file = new File(path);
+		File file = new File("Citylist.txt");
 		buildTree(file);
 	}
 	
@@ -80,7 +80,7 @@ public class GraphLoader {
 				String[] array = line.split(";");
 				int idStart = ctree.find(array[0]).key; //findet Start Knoten ID
 				int idZiel = ctree.find(array[1]).key; //findet Ziel Knoten ID
-				graph.addEdge(idStart, idZiel, Integer.parseInt(array[2])); //fügen Verbindung ein in Graph
+				graph.addEdge(idStart, idZiel, Integer.parseInt(array[2])); //fuegen Verbindung ein in Graph
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
