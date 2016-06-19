@@ -12,6 +12,7 @@ public class ListGraph extends Graph {
 	@SuppressWarnings("unchecked") //Konstruktor
 	public ListGraph(int numVertices, boolean directed) {
 		graph = new ArrayList[numVertices];
+		//Legen Arrays an die bei 0 beginnen aber die IDs beginnen bei 1?
 		for (int i=0; i < numVertices; i++)
 			graph[i] = new ArrayList<WeightedEdge>();
 		this.numVertices = numVertices;
@@ -46,23 +47,25 @@ public class ListGraph extends Graph {
 		addEdge(u, v, 1);
 	}
 	
-	//neuen Weg zu einem Knoten hinzufÃ¼gen
+	//neuen Weg zu einem Knoten hinzufuegen
 	public void addEdge(int u, int v, int weight) {
 		WeightedEdge pv = new WeightedEdge(v, weight);
 		graph[u].add(pv);
-		if (!directed) {
-			pv = new WeightedEdge(u, weight);
-			graph[v].add(pv);
-		}
+//Wir geben im File die Rückwege an. Wenn wir das aktivieren dann darf das File keine doppelten Wege haben.
+//		if (!directed) {
+//			pv = new WeightedEdge(u, weight);
+//			graph[v].add(pv);
+//		}
 	}
 	
 	public void removeEdge(int u, int v) {
 		WeightedEdge pv = findEdge(u, v);
 		graph[u].remove(pv);
-		if (!directed) {
-			pv = findEdge(v, u);
-			graph[u].remove(pv);
-		}
+//Wir geben im File die Rückwege an. Wenn wir das aktivieren dann darf das File keine doppelten Wege haben.
+//		if (!directed) {
+//			pv = findEdge(v, u);
+//			graph[u].remove(pv);
+//		}
 	}
 
 	public List<WeightedEdge> getEdges(int v) {

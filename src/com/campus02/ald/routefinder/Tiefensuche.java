@@ -1,6 +1,5 @@
 package com.campus02.ald.routefinder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.campus02.ald.datastructures.ListGraph;
@@ -8,10 +7,10 @@ import com.campus02.ald.datastructures.WeightedEdge;
 
 public class Tiefensuche {
 	
-	private static int start;
-	private static int ziel;
+	private int start;
+	private int ziel;
 	private GraphLoader gl;
-	private static ListGraph g;
+	private ListGraph g;
 		
 	
 	//private ListGraph lg=new ListGraph(numVertices, directed)
@@ -20,13 +19,14 @@ public class Tiefensuche {
 		super();
 		this.start = start;
 		this.ziel = ziel;
-//		this.gl=gl;
+		this.gl=gl;
 		this.g=gl.getGraph();
 		
 	}
 	
-	public  String findByTiefenSucheRekursiv() {
+	public String findByTiefenSucheRekursiv() {
 		String weg="";
+		System.out.println(g.numVertices());
 		boolean[] visited = new boolean[g.numVertices()];
 		int[] pred = new int[g.numVertices()];
 		
@@ -37,12 +37,12 @@ public class Tiefensuche {
 		
 		for(int i=0; i<pred.length; i++) {
 			//System.out.println(i + " über " + pred[i]);
-			weg+=i + " über " + pred[i];
+			weg+=i + " über " + pred[i] + " ";
 		}
 		return weg;
 	}
 	
-	private static boolean _findByTiefenSucheRekursiv(int current, int nach, boolean[] visited, int[] pred) {
+	private boolean _findByTiefenSucheRekursiv(int current, int nach, boolean[] visited, int[] pred) {
 		
 		if (current == nach) return true;
 	

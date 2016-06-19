@@ -7,7 +7,7 @@ package com.campus02.ald.routefinder;
 		 * Wurzel des Baums (Startknoten)
 		 */
 		protected Node<Key,Value> root;
-
+		
 		/**
 		 * Wurzel auslesen
 		 * @return

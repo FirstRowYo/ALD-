@@ -15,11 +15,62 @@ public class GraphLoader {
 	private File file;
 	private ArrayList<String> list = new ArrayList<>();
 	private ListGraph graph;
-		
+
 	public ListGraph getGraph() {
 		return graph;
 	}
 
+	public GraphLoader() 
+	{
+		File file = new File("Citylist.txt");
+		graph = new ListGraph(getGraphSize(file), false);
+		buildTree(file);
+		loadGraph(file);
+	}
+	
+	//Build graph--------------------------------------------------------------------------------
+
+	public void loadGraph(File file) {
+		try (
+			FileReader fr = new FileReader(file);
+			BufferedReader br = new BufferedReader(fr);
+			) 
+		{
+			//ListGraph graph = new ListGraph(getGraphSize(file), false); //getGraphSize gibt die Anzhal der Knoten an
+			String line;
+			while((line=br.readLine()) != null) {
+				String[] array = line.split(";");
+				int idStart = ctree.find(array[0]).key; //findet Start Knoten ID
+				int idZiel = ctree.find(array[1]).key; //findet Ziel Knoten ID
+				graph.addEdge(idStart, idZiel, Integer.parseInt(array[2])); //fuegen Verbindung ein in Graph
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public int getGraphSize(File file) {
+		try (
+			FileReader fr = new FileReader(file);
+			BufferedReader br = new BufferedReader(fr);
+			) {
+				String line;
+				while((line=br.readLine()) != null) {
+					String[] array = line.split(";");
+					if(list.contains(array[0])==false) {
+						list.add(array[0]);
+					}
+				}	
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return list.size();
+	}
+	
+	//Build tree--------------------------------------------------------------------------------
+	
 	private BaseTree<Integer,String> ctree = new BaseTree<Integer,String>() 
 	{
 		@Override
@@ -48,72 +99,24 @@ public class GraphLoader {
 			else 
 				return 0;}};
 	
-	public GraphLoader() 
-	{
-		File file = new File("C:\\temp\\way.txt");//Citylist.txt
-		buildTree(file);
-		//graph = loadGraph();
-	}
-	
-	private void buildTree(File file) {
-		try (BufferedReader br = new BufferedReader(new FileReader(file));)
-		{
-		String line;
-		Integer counter = 0;
-		while ((line=br.readLine())!=null)
-		{
-			String[]array=line.split(";");
-			String node = array[0];
-			if (ctree.find(node) == null){counter++;}
-			ctree.add(counter,node);
-			stree.add(node, counter);
-		}
-		} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-		
-	}
-
-	public void loadGraph() {
-		try (
-			FileReader fr = new FileReader(file);
-			BufferedReader br = new BufferedReader(fr);
-			) 
-		{
-			ListGraph graph = new ListGraph(getGraphSize(), false); //getGraphSize gibt die Anzhal der Knoten an
-			String line;
-			while((line=br.readLine()) != null) {
-				String[] array = line.split(";");
-				int idStart = ctree.find(array[0]).key; //findet Start Knoten ID
-				int idZiel = ctree.find(array[1]).key; //findet Ziel Knoten ID
-				graph.addEdge(idStart, idZiel, Integer.parseInt(array[2])); //fuegen Verbindung ein in Graph
-			}
-			//return graph;
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//return null;
-	}
-	
-	public int getGraphSize() {
-		try (
-			FileReader fr = new FileReader(file);
-			BufferedReader br = new BufferedReader(fr);
-			) {
-				String line;
-				while((line=br.readLine()) != null) {
-					String[] array = line.split(";");
-					if(list.contains(array[0])==false) {
-						list.add(array[0]);
+				private void buildTree(File file) {
+					try (BufferedReader br = new BufferedReader(new FileReader(file));)
+					{
+					String line;
+					Integer counter = -1;// ist dafür verantwortlich das die ID's mit 0 starten
+					while ((line=br.readLine())!=null)
+					{
+						String[]array=line.split(";");
+						String node = array[0];
+						if (ctree.find(node) == null){counter++;}//weil bereits hier um eines erhöht wird
+						ctree.add(counter,node);
+						stree.add(node, counter);
 					}
-				}	
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		return list.size();
+					} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+					
 	}
 	
 	public void printTrees()
