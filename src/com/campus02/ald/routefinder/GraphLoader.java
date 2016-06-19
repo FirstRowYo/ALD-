@@ -108,7 +108,10 @@ public class GraphLoader {
 					{
 						String[]array=line.split(";");
 						String node = array[0];
-						if (ctree.find(node) == null){counter++;}//weil bereits hier um eines erhöht wird
+						if (ctree.find(node) == null)
+						{
+							counter++; //weil bereits hier um eines erhöht wird
+						}
 						ctree.add(counter,node);
 						stree.add(node, counter);
 					}

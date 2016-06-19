@@ -40,8 +40,8 @@ public class ProcessClient implements Runnable {
 						int ziel = gl.translateString(array[1]);
 					if(Integer.parseInt(array[2]) == 1) //array[2] Possition der Suchmethoden auswahl
 					{
-						Tiefensuche t=new Tiefensuche(start, ziel, gl);
-						String weg=t.findByTiefenSucheRekursiv();
+						Tiefensuche t = new Tiefensuche(start, ziel, gl);
+						String weg = t.findByTiefenSucheRekursiv();
 						pw.println(weg);
 						pw.flush();
 					}
