@@ -99,26 +99,29 @@ public class GraphLoader {
 			else 
 				return 0;}};
 	
-				private void buildTree(File file) {
-					try (BufferedReader br = new BufferedReader(new FileReader(file));)
-					{
-					String line;
-					Integer counter = -1;// ist dafür verantwortlich das die ID's mit 0 starten
-					while ((line=br.readLine())!=null)
-					{
-						String[]array=line.split(";");
-						String node = array[0];
-						if (ctree.find(node) == null)
-						{
-							counter++; //weil bereits hier um eines erhöht wird
-						}
-						ctree.add(counter,node);
-						stree.add(node, counter);
-					}
-					} catch (IOException e) {
+	private void buildTree(File file) 
+	{
+		try (BufferedReader br = new BufferedReader(new FileReader(file));)
+		{
+			String line;
+			Integer counter = -1;// ist dafür verantwortlich das die ID's mit 0 starten
+			while ((line=br.readLine())!=null)
+			{
+				String[]array=line.split(";");
+				String node = array[0];
+				if (ctree.find(node) == null)
+				{
+					counter++; //weil bereits hier um eines erhöht wird
+				}
+				ctree.add(counter,node);
+				stree.add(node, counter);
+			}
+		} 
+		catch (IOException e) 
+		{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}
+		}
 					
 	}
 	
@@ -139,6 +142,11 @@ public class GraphLoader {
 	public int translateString(String ort)
 	{
 		return ctree.find(ort).key;
+	}
+	
+	public String translateID(int id)
+	{
+		return stree.find(id).key;
 	}
 
 }

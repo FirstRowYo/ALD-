@@ -42,6 +42,7 @@ public class ProcessClient implements Runnable {
 					{
 						Tiefensuche t = new Tiefensuche(start, ziel, gl);
 						String weg = t.findByTiefenSucheRekursiv();
+						
 						pw.println(weg);
 						pw.flush();
 					}

@@ -6,8 +6,9 @@ public class Demo {
 		
 		GraphLoader gl = new GraphLoader();
 
-		Tiefensuche t = new Tiefensuche(0, 2, gl);
+		Tiefensuche t = new Tiefensuche(2, 5, gl);
 		String weg = t.findByTiefenSucheRekursiv();
+		
 		System.out.println(weg);
 	}
 
