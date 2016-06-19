@@ -41,7 +41,6 @@ public class ListGraph extends Graph {
 		WeightedEdge pv = findEdge(u, v);
 		return pv.weight;
 	}
-
 	
 	public void addEdge(int u, int v) {
 		addEdge(u, v, 1);
@@ -57,8 +56,6 @@ public class ListGraph extends Graph {
 		}
 	}
 	
-
-
 	public void removeEdge(int u, int v) {
 		WeightedEdge pv = findEdge(u, v);
 		graph[u].remove(pv);

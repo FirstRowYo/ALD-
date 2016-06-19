@@ -10,5 +10,5 @@ Salzburg;Linz;100
 Salzburg;Innsbruck;50
 Innsbruck;Salzburg;50
 Innsbruck;Klagenfurt;100
-Klagenfurt;Innsbruck;100;
-Klagenfurt;Graz;100;
+Klagenfurt;Innsbruck;100
+Klagenfurt;Graz;100

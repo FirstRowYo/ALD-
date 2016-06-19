@@ -50,9 +50,9 @@ public class GraphLoader {
 	
 	public GraphLoader() 
 	{
-		File file = new File("Citylist.txt");
+		File file = new File("C:\\temp\\way.txt");//Citylist.txt
 		buildTree(file);
-		graph = loadGraph();
+		//graph = loadGraph();
 	}
 	
 	private void buildTree(File file) {
@@ -75,11 +75,12 @@ public class GraphLoader {
 		
 	}
 
-	public ListGraph loadGraph() {
+	public void loadGraph() {
 		try (
 			FileReader fr = new FileReader(file);
 			BufferedReader br = new BufferedReader(fr);
-			) {
+			) 
+		{
 			ListGraph graph = new ListGraph(getGraphSize(), false); //getGraphSize gibt die Anzhal der Knoten an
 			String line;
 			while((line=br.readLine()) != null) {
@@ -88,12 +89,12 @@ public class GraphLoader {
 				int idZiel = ctree.find(array[1]).key; //findet Ziel Knoten ID
 				graph.addEdge(idStart, idZiel, Integer.parseInt(array[2])); //fuegen Verbindung ein in Graph
 			}
-			return graph;
+			//return graph;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		//return null;
 	}
 	
 	public int getGraphSize() {
@@ -120,6 +121,7 @@ public class GraphLoader {
 		ctree.printTree();
 		stree.printTree();
 	}
+	
 	public int checkTree(String start, String target)
 	{
 		if (((ctree.find(start)) != null && (ctree.find(target)) != null))

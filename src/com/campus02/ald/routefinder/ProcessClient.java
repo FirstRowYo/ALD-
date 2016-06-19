@@ -37,11 +37,13 @@ public class ProcessClient implements Runnable {
 				{	
 					if ((checkNode(array[0],array[1])) != 0){
 						int start = gl.translateString(array[0]);
-						int target = gl.translateString(array[1]);
+						int ziel = gl.translateString(array[1]);
 					if(Integer.parseInt(array[2]) == 1) //array[2] Possition der Suchmethoden auswahl
 					{
-						//hier wird Tiefensuche aufgerufen
-						//tiefensuche(start, ziel, gl)
+						Tiefensuche t=new Tiefensuche(start, ziel, gl);
+						String weg=t.findByTiefenSucheRekursiv();
+						pw.println(weg);
+						pw.flush();
 					}
 					else if(Integer.parseInt(array[2]) == 2) 
 					{
@@ -84,6 +86,4 @@ public class ProcessClient implements Runnable {
 		pw.flush();
 	}
 	
-	
-
 }
