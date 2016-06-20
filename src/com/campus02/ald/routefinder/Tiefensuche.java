@@ -23,6 +23,8 @@ public class Tiefensuche {
 	public String findByTiefenSucheRekursiv() {
 		String weg="";
 		String wegID="";
+		
+		//Stack verwenden?
 		boolean[] visited = new boolean[graph.numVertices()];
 		int[] pred = new int[graph.numVertices()];
 		
@@ -38,9 +40,7 @@ public class Tiefensuche {
 			{
 				wegID+=i + " ueber " + pred[i] + " \n";
 				weg+=gl.translateID(i)+" ueber " + gl.translateID(pred[i]) + " \n";
-		}
-			
-			
+			}
 		}
 		return weg+"\n"+wegID;
 	}
