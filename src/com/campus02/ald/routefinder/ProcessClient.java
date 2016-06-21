@@ -42,13 +42,15 @@ public class ProcessClient implements Runnable {
 					{
 						Tiefensuche t = new Tiefensuche(start, ziel, gl);
 						String weg = t.findByTiefenSucheRekursiv();
-						
 						pw.println(weg);
 						pw.flush();
 					}
 					else if(Integer.parseInt(array[2]) == 2) 
 					{
-						//hier wird Breitensuche aufgerufen
+						Breitensuche b = new Breitensuche(start, ziel, gl);
+						String weg = b.findByBreitenSuche();
+						pw.println(weg);
+						pw.flush();
 					}
 					else if(Integer.parseInt(array[2]) == 3) 
 					{

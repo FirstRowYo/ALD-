@@ -14,29 +14,6 @@ public class Breitensuche {
 	private ListGraph graph; //war mal nur "g"
 	private GraphLoader gl = new GraphLoader();
 	
-//______________________________________________VERSUCH________________________________
-								private ArrayList<Integer>list=new ArrayList<>();
-								
-							
-								public int getStart() {
-									return start;
-								}
-							
-								public int getZiel() {
-									return ziel;
-								}
-							
-								public ArrayList<Integer> getList() {
-									return list;
-								}
-								
-								public Breitensuche() {
-									
-								}
-								
-//_________________________________________________VERSUCH________________________________
-	
-
 	public Breitensuche(int start, int ziel, GraphLoader gl) {
 		super();
 		this.start = start;
@@ -44,7 +21,7 @@ public class Breitensuche {
 		this.graph = gl.getGraph();
 	}
 
-	public void findByBreitenSuche()
+	public String findByBreitenSuche()
 	{
 		ArrayDeque<Integer> nodes = new ArrayDeque<Integer>();
 		
@@ -82,23 +59,49 @@ public class Breitensuche {
 		}
 		if (found)
 		{
+			//Rekursions Methode unten aufrufen
+			ArrayList<Integer> wayArray = findWay(pred, ziel, start, ziel);
 			
-			
-			//Ausgabe überarbeiten! Von hinten durchgehen (höhö) um kürzesten weg zu finden
-			for(int i=0; i<pred.length; i++)
-			{
-				System.out.println(i + " über " + pred[i]);
-//______________________________________VERSUCH________________________________
-				list.add(i);
-				list.add(pred[i]);
-//______________________________________VERSUCH________________________________
+			//Array mit IDs in Strings umwandeln und ausgeben
+			String way = "";
+			for (int i = wayArray.size()-1; i >= 0; i--) {
+				if(i == 0) 
+				{
+					way += gl.translateID(wayArray.get(i));
+				}
+				else {
+					way += gl.translateID(wayArray.get(i)) + " -> ";
+				}
 			}
+			return way;
+
+//			for(int i=0; i<pred.length; i++)
+//			{
+//				System.out.println(i + " über " + pred[i]);
+//			}
 		}
 		else
 		{
-			System.out.println("Keine Verbindung gefunden");
+			return "Keine Verbindung gefunden";
 		}
 
+	}
+	//Gefundenen Weg in eine Array packen von Ziel zum Start
+	private ArrayList<Integer> way = new ArrayList<>();
+	private ArrayList<Integer> findWay(int[] pred,int current, int start, int ziel) {
+			if(current == ziel) {
+				way.add(ziel);
+				findWay(pred, pred[current], start, ziel);
+			}
+			else if(current == start) {
+				way.add(start);
+				return way;
+			}
+			else if(current != start) {
+				way.add(current);
+				findWay(pred, pred[current], start, ziel);
+			}
+		return way;
 	}
 	
 }

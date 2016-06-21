@@ -1,5 +1,6 @@
 package com.campus02.ald.routefinder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.campus02.ald.datastructures.ListGraph;
@@ -21,8 +22,6 @@ public class Tiefensuche {
 	
 	
 	public String findByTiefenSucheRekursiv() {
-		String weg="";
-		String wegID="";
 		
 		//Stack verwenden?
 		boolean[] visited = new boolean[graph.numVertices()];
@@ -34,15 +33,31 @@ public class Tiefensuche {
 		}
 		_findByTiefenSucheRekursiv(start, ziel, visited, pred);
 		
-		for(int i=0; i<pred.length; i++) 
-		{
-			if(pred[i]!=-1)
+		//Rekursions Methode unten aufrufen
+		ArrayList<Integer> wayArray = findWay(pred, ziel, start, ziel);
+		
+		//Array mit IDs in Strings umwandeln und umgedreht ausgeben
+		String way = "";
+		for (int i = wayArray.size()-1; i >= 0; i--) {
+			if(i == 0) 
 			{
-				wegID+=i + " ueber " + pred[i] + " \n";
-				weg+=gl.translateID(i)+" ueber " + gl.translateID(pred[i]) + " \n";
+				way += gl.translateID(wayArray.get(i));
+			}
+			else {
+				way += gl.translateID(wayArray.get(i)) + " -> ";
 			}
 		}
-		return weg+"\n"+wegID;
+		return way;
+		
+//		for(int i=0; i<pred.length; i++) 
+//		{
+//			if(pred[i]!=-1)
+//			{
+//				wegID+=i + " ueber " + pred[i] + " \n";
+//				weg+=gl.translateID(i)+" ueber " + gl.translateID(pred[i]) + " \n";
+//			}
+//		}
+//		return weg+"\n"+wegID;
 	}
 	
 	
@@ -62,6 +77,24 @@ public class Tiefensuche {
 			}
 		}
 		return false;
+	}
+	
+	//Gefundenen Weg in eine Array packen von Ziel zum Start
+	private ArrayList<Integer> way = new ArrayList<>();
+	private ArrayList<Integer> findWay(int[] pred,int current, int start, int ziel) {
+			if(current == ziel) {
+				way.add(ziel);
+				findWay(pred, pred[current], start, ziel);
+			}
+			else if(current == start) {
+				way.add(start);
+				return way;
+			}
+			else if(current != start) {
+				way.add(current);
+				findWay(pred, pred[current], start, ziel);
+			}
+		return way;
 	}
 
 }
