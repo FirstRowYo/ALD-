@@ -1,6 +1,7 @@
 package com.campus02.ald.routefinder;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.campus02.ald.datastructures.ListGraph;
@@ -13,6 +14,29 @@ public class Breitensuche {
 	private ListGraph graph; //war mal nur "g"
 	private GraphLoader gl = new GraphLoader();
 	
+//______________________________________________VERSUCH________________________________
+								private ArrayList<Integer>list=new ArrayList<>();
+								
+							
+								public int getStart() {
+									return start;
+								}
+							
+								public int getZiel() {
+									return ziel;
+								}
+							
+								public ArrayList<Integer> getList() {
+									return list;
+								}
+								
+								public Breitensuche() {
+									
+								}
+								
+//_________________________________________________VERSUCH________________________________
+	
+
 	public Breitensuche(int start, int ziel, GraphLoader gl) {
 		super();
 		this.start = start;
@@ -58,10 +82,16 @@ public class Breitensuche {
 		}
 		if (found)
 		{
+			
+			
 			//Ausgabe überarbeiten! Von hinten durchgehen (höhö) um kürzesten weg zu finden
 			for(int i=0; i<pred.length; i++)
 			{
 				System.out.println(i + " über " + pred[i]);
+//______________________________________VERSUCH________________________________
+				list.add(i);
+				list.add(pred[i]);
+//______________________________________VERSUCH________________________________
 			}
 		}
 		else
