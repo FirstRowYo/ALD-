@@ -3,10 +3,10 @@ package com.campus02.ald.routefinder;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.campus02.chat.VertexHeap;
 
 import com.campus02.ald.datastructures.Graph;
 import com.campus02.ald.datastructures.ListGraph;
+import com.campus02.ald.datastructures.VertexHeap;
 import com.campus02.ald.datastructures.WeightedEdge;
 
 public class Dijkstra {
