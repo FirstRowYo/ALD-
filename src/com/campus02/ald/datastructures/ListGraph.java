@@ -28,8 +28,9 @@ public class ListGraph extends Graph {
 	
 	//MOMENTAN NICHT IN VERWENDUNG
 	//Findet raus ob es zwischen u(AusgangsKnoten) und v(ZielKnoten) einen Weg gibt
-	private WeightedEdge findEdge(int u, int v) {
-		for (int i=0; i < graph[u].size(); i++) {//array an der position zb.: 0 hat eine größe von 3
+	public WeightedEdge findEdge(int u, int v) {
+		for (int i=0; i < graph[u].size(); i++) 
+		{//array an der position zb.: 0 hat eine grÃ¶ÃŸe von 3
 			if (graph[u].get(i).vertex == v)
 				return graph[u].get(i);
 		}
@@ -54,7 +55,7 @@ public class ListGraph extends Graph {
 	public void addEdge(int u, int v, int weight) {
 		WeightedEdge pv = new WeightedEdge(v, weight);
 		graph[u].add(pv);
-//Wir geben im File die Rückwege an. Wenn wir das aktivieren dann darf das File keine doppelten Wege haben.
+//Wir geben im File die RÃ¼ckwege an. Wenn wir das aktivieren dann darf das File keine doppelten Wege haben.
 //		if (!directed) {
 //			pv = new WeightedEdge(u, weight);
 //			graph[v].add(pv);
@@ -64,7 +65,7 @@ public class ListGraph extends Graph {
 	public void removeEdge(int u, int v) {
 		WeightedEdge pv = findEdge(u, v);
 		graph[u].remove(pv);
-//Wir geben im File die Rückwege an. Wenn wir das aktivieren dann darf das File keine doppelten Wege haben.
+//Wir geben im File die RÃ¼ckwege an. Wenn wir das aktivieren dann darf das File keine doppelten Wege haben.
 //		if (!directed) {
 //			pv = findEdge(v, u);
 //			graph[u].remove(pv);

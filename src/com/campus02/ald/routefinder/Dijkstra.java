@@ -17,14 +17,16 @@ public class Dijkstra {
 	private ListGraph graph; 
 	private GraphLoader gl = new GraphLoader();
 	
-	public Dijkstra(int start, int ziel, GraphLoader gl) {
+	public Dijkstra(int start, int ziel, GraphLoader gl) 
+	{
 		super();
 		this.start = start;
 		this.ziel = ziel;
 		this.graph = gl.getGraph();
 	}
 	
-	public String dijkstra(){
+	public String findByDijkstra()
+	{
 		
 		int[] pred = new int[graph.numVertices()];
 		int[] dist = new int[graph.numVertices()];
@@ -65,29 +67,63 @@ public class Dijkstra {
                 }
             }
         }
-		
-        
         //Ausgabe gehört noch geprüft - besonders "predToWay"
-        /*
+       
         // pred ausgeben
-        for(int i=0; i<pred.length; i++) {
-            System.out.println(i + " über " + pred[i]);
-        }
+//        String way = "";
+//        for(int i=0; i<pred.length; i++) 
+//        {
+//            way += i + " über " + pred[i] + "\n";
+//        }
         
+      //Rekursions Methode unten aufrufen
+      	ArrayList<Integer> wayArray = findWay(pred, ziel, start, ziel);
+      	
+      //Array mit IDs in Strings umwandeln und umgedreht ausgeben
+      	String way = "";
+      	int sum=0;
+      	for (int i = wayArray.size()-1; i >= 0; i--) {
+      		if(i == 0) 
+      		{
+      			way += gl.translateID(wayArray.get(i)) + " : Gesamt(" + sum + ")";
+      		}
+      		else {
+      			way += gl.translateID(wayArray.get(i)) + " -("+graph.getEdgeWeight(i, i-1) + ")-> ";
+      			sum += graph.getEdgeWeight(i, i-1);
+      		}
+      		
+      	}
         
         // Way ausgeben
-        System.out.println();
+        /*System.out.println();
         ArrayList<Integer> way = predToWay(pred,start, ziel);
-        for(int vertexNumber: way) {
+        for(int vertexNumber: way) 
+        {
             System.out.print(vertexNumber + " ");
         }
-        System.out.println();
+        System.out.println();*/
         
-    }*/
-		return null; 
+        return way;   
+    }
+    
+	//Gefundenen Weg in eine Array packen von Ziel zum Start
+	private ArrayList<Integer> way = new ArrayList<>();
+	private ArrayList<Integer> findWay(int[] pred,int current, int start, int ziel) {
+			if(current == ziel) {
+				way.add(ziel);
+				findWay(pred, pred[current], start, ziel);
+			}
+			else if(current == start) {
+				way.add(start);
+				return way;
+			}
+			else if(current != start) {
+				way.add(current);
+				findWay(pred, pred[current], start, ziel);
+			}
+		return way;
+	}	
 		
-	}
-	
 }
 
 

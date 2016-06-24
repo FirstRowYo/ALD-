@@ -54,10 +54,13 @@ public class ProcessClient implements Runnable {
 					}
 					else if(Integer.parseInt(array[2]) == 3) 
 					{
-						//hier wird Dijkstra aufgerufen
+						Dijkstra d = new Dijkstra(start, ziel, gl);
+						String weg = d.findByDijkstra();
+						pw.println(weg);
+						pw.flush();
 					}
 					else {
-						pw.println("Kein gueltiger Algorythus ausgewählt! Bitte neu waehlen! ");
+						pw.println("Kein gueltiger Algorythus ausgewï¿½hlt! Bitte neu waehlen! ");
 					}}
 					else {
 						pw.println("Ziel Nicht vorhanden, bitte neues Ziel waehlen.");

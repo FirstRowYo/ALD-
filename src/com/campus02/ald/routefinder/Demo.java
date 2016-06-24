@@ -7,14 +7,18 @@ public class Demo {
 		GraphLoader gl = new GraphLoader();
 
 		Tiefensuche t = new Tiefensuche(2, 5, gl);
-		String weg = t.findByTiefenSucheRekursiv();
-		
-		System.out.println(weg);
+		System.out.println(t.findByTiefenSucheRekursiv());
+
 		System.out.println();
 		
-		//Weg von hinten durchgehen. 5 über 0 - 0 über 2 - fertig.
-		Breitensuche b = new Breitensuche(1, 5, gl);
+		Breitensuche b = new Breitensuche(2, 5, gl);
 		System.out.println(b.findByBreitenSuche());
+		
+		System.out.println();
+		
+		Dijkstra d = new Dijkstra(1, 4, gl);
+		System.out.println(d.findByDijkstra());
+		
 	}	
 
 }
