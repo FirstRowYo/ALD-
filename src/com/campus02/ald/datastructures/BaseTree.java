@@ -1,7 +1,6 @@
-package com.campus02.ald.routefinder;
+package com.campus02.ald.datastructures;
 
-	
-	public abstract class BaseTree<Key,Value> {
+public abstract class BaseTree<Key,Value> {
 
 		/**
 		 * Wurzel des Baums (Startknoten)

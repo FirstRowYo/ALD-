@@ -6,8 +6,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.campus02.ald.datastructures.BaseTree;
 import com.campus02.ald.datastructures.ListGraph;
 import com.campus02.ald.datastructures.WeightedEdge;
+import com.campus02.ald.datastructures.Node;
+
 
 @SuppressWarnings("unused")
 public class GraphLoader {
@@ -40,8 +43,8 @@ public class GraphLoader {
 			String line;
 			while((line=br.readLine()) != null) {
 				String[] array = line.split(";");
-				int idStart = ctree.find(array[0]).key; //findet Start Knoten ID
-				int idZiel = ctree.find(array[1]).key; //findet Ziel Knoten ID
+				int idStart = ctree.find(array[0]).getKey(); //findet Start Knoten ID
+				int idZiel = ctree.find(array[1]).getKey(); //findet Ziel Knoten ID
 				graph.addEdge(idStart, idZiel, Integer.parseInt(array[2])); //fuegen Verbindung ein in Graph
 			}
 		} catch (IOException e) {
@@ -141,12 +144,12 @@ public class GraphLoader {
 	
 	public int translateString(String ort)
 	{
-		return ctree.find(ort).key;
+		return ctree.find(ort).getKey();
 	}
 	
 	public String translateID(int id)
 	{
-		return stree.find(id).key;
+		return stree.find(id).getKey();
 	}
 
 }
