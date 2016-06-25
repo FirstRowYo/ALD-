@@ -4,19 +4,22 @@ public class Demo {
 
 	public static void main(String[] args) {
 		
+		int start=1;
+		int ziel =5;
+		
 		GraphLoader gl = new GraphLoader();
 
-		Tiefensuche t = new Tiefensuche(2, 5, gl);
+		Tiefensuche t = new Tiefensuche(start, ziel, gl);
 		System.out.println(t.findByTiefenSucheRekursiv());
 
 		System.out.println();
 		
-		Breitensuche b = new Breitensuche(2, 5, gl);
+		Breitensuche b = new Breitensuche(start, ziel, gl);
 		System.out.println(b.findByBreitenSuche());
 		
 		System.out.println();
 		
-		Dijkstra d = new Dijkstra(1, 4, gl);
+		Dijkstra d = new Dijkstra(start, ziel, gl);
 		System.out.println(d.findByDijkstra());
 		
 	}	

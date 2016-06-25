@@ -88,8 +88,8 @@ public class Dijkstra {
       			way += gl.translateID(wayArray.get(i)) + " : Gesamt(" + sum + ")";
       		}
       		else {
-      			way += gl.translateID(wayArray.get(i)) + " -("+graph.getEdgeWeight(i, i-1) + ")-> ";
-      			sum += graph.getEdgeWeight(i, i-1);
+      			way += gl.translateID(wayArray.get(i)) + " -("+graph.getEdgeWeight(wayArray.get(i), wayArray.get(i-1)) + ")-> ";
+      			sum += graph.getEdgeWeight(wayArray.get(i), wayArray.get(i-1));
       		}
       		
       	}

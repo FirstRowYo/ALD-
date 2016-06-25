@@ -73,12 +73,13 @@ public class Breitensuche {
 					way += gl.translateID(wayArray.get(i)) + " -> ";
 				}
 			}
-			return way;
+			
 
 //			for(int i=0; i<pred.length; i++)
 //			{
 //				System.out.println(i + " über " + pred[i]);
 //			}
+			return way;
 		}
 		else
 		{
