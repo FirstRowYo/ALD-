@@ -1,19 +1,20 @@
 package com.campus02.ald.datastructures;
+
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class ListGraph extends Graph {
-
+public class ListGraph extends Graph 
+{
 	private ArrayList<WeightedEdge>[] graph;	//Liste der verbunden gewichteten Knoten
 	private int numVertices; 	//Anzahl der Knoten
 	private boolean directed; 	//gerichtet oder nicht, werden wir nicht verwenden
 	
 	@SuppressWarnings("unchecked") 	//Konstruktor
-	public ListGraph(int numVertices, boolean directed) {
+	public ListGraph(int numVertices, boolean directed) 
+	{
 		graph = new ArrayList[numVertices];
 		
-		//Legen Arrays an die bei 0 beginnen aber die IDs beginnen bei 1?
+		//Legen Arrays an die bei 0 beginnen aber die IDs beginnen bei 1 wenn de ID's mit 1 beginnen w�rden, w�rden wir einen out of bounds erreichen 
 		for (int i=0; i < numVertices; i++)
 			graph[i] = new ArrayList<WeightedEdge>();	//i* leere ArrayList vom Typ WeigthedEdge initalisiert
 		this.numVertices = numVertices;
@@ -21,58 +22,66 @@ public class ListGraph extends Graph {
 	}
 	
 	//Getter
-	public int numVertices() {
+	public int numVertices() 
+	{
 		return numVertices;
 	}
 	
-	
-	//MOMENTAN NICHT IN VERWENDUNG
 	//Findet raus ob es zwischen u(AusgangsKnoten) und v(ZielKnoten) einen Weg gibt
-	public WeightedEdge findEdge(int u, int v) {
+	public WeightedEdge findEdge(int u, int v) 
+	{
 		for (int i=0; i < graph[u].size(); i++) 
-		{//array an der position zb.: 0 hat eine größe von 3
+		{//array an der position zb.: 0 hat eine groesse von 3
 			if (graph[u].get(i).vertex == v)
 				return graph[u].get(i);
 		}
 		return null;
 	}
 	
-	public boolean hasEdge(int u, int v) {
+	public boolean hasEdge(int u, int v) 
+	{
 		WeightedEdge pv = findEdge(u, v);
 		return pv != null;
 	}
 	
-	public int getEdgeWeight(int u, int v) {
+	public int getEdgeWeight(int u, int v) 
+	{
 		WeightedEdge pv = findEdge(u, v);
 		return pv.weight;
 	}
 	
-	public void addEdge(int u, int v) {
+	public void addEdge(int u, int v) 
+	{
 		addEdge(u, v, 1);
 	}
 	
 	//neuen Weg zu einem Knoten hinzufuegen
-	public void addEdge(int u, int v, int weight) {
+	public void addEdge(int u, int v, int weight) 
+	{
 		WeightedEdge pv = new WeightedEdge(v, weight);
 		graph[u].add(pv);
-//Wir geben im File die Rückwege an. Wenn wir das aktivieren dann darf das File keine doppelten Wege haben.
-//		if (!directed) {
+//Wir geben im File die Rueckwege an. Wenn wir das aktivieren dann darf das File keine doppelten Wege haben.
+//		if (!directed) 
+//		{
 //			pv = new WeightedEdge(u, weight);
 //			graph[v].add(pv);
 //		}
 	}
 	
-	public void removeEdge(int u, int v) {
+	public void removeEdge(int u, int v) 
+	{
 		WeightedEdge pv = findEdge(u, v);
 		graph[u].remove(pv);
-//Wir geben im File die Rückwege an. Wenn wir das aktivieren dann darf das File keine doppelten Wege haben.
-//		if (!directed) {
+//Wir geben im File die Rueckwege an. Wenn wir das aktivieren dann darf das File keine doppelten Wege haben.
+//		if (!directed) 
+//		{
 //			pv = findEdge(v, u);
 //			graph[u].remove(pv);
 //		}
 	}
 
-	public List<WeightedEdge> getEdges(int v) {
+	public List<WeightedEdge> getEdges(int v) 
+	{
 		return graph[v];
 	}
 }
