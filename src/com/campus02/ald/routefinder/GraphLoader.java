@@ -13,13 +13,15 @@ import com.campus02.ald.datastructures.Node;
 
 
 @SuppressWarnings("unused")
-public class GraphLoader {
+public class GraphLoader 
+{
 	
 	private File file;
 	private ArrayList<String> list = new ArrayList<>();
 	private ListGraph graph;
 
-	public ListGraph getGraph() {
+	public ListGraph getGraph() 
+	{
 		return graph;
 	}
 
@@ -33,7 +35,8 @@ public class GraphLoader {
 	
 	//Build graph--------------------------------------------------------------------------------
 
-	public void loadGraph(File file) {
+	public void loadGraph(File file) 
+	{
 		try (
 			FileReader fr = new FileReader(file);
 			BufferedReader br = new BufferedReader(fr);
@@ -41,34 +44,41 @@ public class GraphLoader {
 		{
 			//ListGraph graph = new ListGraph(getGraphSize(file), false); //getGraphSize gibt die Anzhal der Knoten an
 			String line;
-			while((line=br.readLine()) != null) {
+			while((line=br.readLine()) != null) 
+			{
 				String[] array = line.split(";");
 				int idStart = ctree.find(array[0]).getKey(); //findet Start Knoten ID
 				int idZiel = ctree.find(array[1]).getKey(); //findet Ziel Knoten ID
 				graph.addEdge(idStart, idZiel, Integer.parseInt(array[2])); //fuegen Verbindung ein in Graph
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (IOException e) 
+		{
 			e.printStackTrace();
 		}
 	}
 	
-	public int getGraphSize(File file) {
+	public int getGraphSize(File file) 
+	{
 		try (
 			FileReader fr = new FileReader(file);
 			BufferedReader br = new BufferedReader(fr);
-			) {
+			) 
+		{
 				String line;
-				while((line=br.readLine()) != null) {
+				while((line=br.readLine()) != null) 
+				{
 					String[] array = line.split(";");
-					if(list.contains(array[0])==false) {
+					if(list.contains(array[0])==false) 
+					{
 						list.add(array[0]);
 					}
 				}	
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
 		return list.size();
 	}
 	
@@ -77,30 +87,40 @@ public class GraphLoader {
 	private BaseTree<Integer,String> ctree = new BaseTree<Integer,String>() 
 	{
 		@Override
-		protected int compareKey(Integer a, Integer b) {
+		protected int compareKey(Integer a, Integer b) 
+		{
 			if (a<b)
 				return -1;
 			if (a>b)
 				return 1;
 			else 
-				return 0;}
+				return 0;
+		}
 		@Override
-		protected int compareValue(String a, String b) {
-			return a.compareTo(b);}
+		protected int compareValue(String a, String b) 
+		{
+			return a.compareTo(b);
+		}
 	};
 			
-	private BaseTree<String, Integer> stree = new BaseTree<String, Integer>() {
+	private BaseTree<String, Integer> stree = new BaseTree<String, Integer>() 
+	{
 		@Override
-		protected int compareKey(String a, String b) {
-			return a.compareTo(b);}
+		protected int compareKey(String a, String b) 
+		{
+			return a.compareTo(b);
+		}
 		@Override
-		protected int compareValue(Integer a, Integer b) {
+		protected int compareValue(Integer a, Integer b) 
+		{
 			if (a<b)
 				return -1;
 			if (a>b)
 				return 1;
 			else 
-				return 0;}};
+				return 0;
+		}
+	};
 	
 	private void buildTree(File file) 
 	{
@@ -122,8 +142,7 @@ public class GraphLoader {
 		} 
 		catch (IOException e) 
 		{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			e.printStackTrace();
 		}
 					
 	}

@@ -3,13 +3,12 @@ package com.campus02.ald.routefinder;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import com.campus02.ald.datastructures.Graph;
 import com.campus02.ald.datastructures.ListGraph;
 import com.campus02.ald.datastructures.VertexHeap;
 import com.campus02.ald.datastructures.WeightedEdge;
 
-public class Dijkstra {
+public class Dijkstra 
+{
 
 	//orientierung an Aufbau Tiefensuche
 	private int start;
@@ -33,7 +32,8 @@ public class Dijkstra {
 		boolean[] visited = new boolean[graph.numVertices()];
 		
 		VertexHeap heap = new VertexHeap(graph.numVertices()); //eigen Heapklasse für Prioritätsvergabe nach Gewichtung
-		for(int i=0; i<dist.length; i++){
+		for(int i=0; i<dist.length; i++)
+		{
 			dist[i] = 99999;
 			heap.insert(new WeightedEdge(i, 999999));
 			pred[i] = 1;
@@ -42,24 +42,23 @@ public class Dijkstra {
 		dist[start] = 0;
         heap.setPriority(start, 0);
         
-        while(!heap.isEmpty()) {
-            
+        while(!heap.isEmpty()) 
+        {
             WeightedEdge cur = heap.remove();
             
             if (cur.vertex == ziel) break;
             
             List<WeightedEdge> nachbarn = graph.getEdges(cur.vertex);
             
-            for(WeightedEdge nachbar: nachbarn) {
-                
-                
+            for(WeightedEdge nachbar: nachbarn) 
+            {
                 int distBisHier = dist[cur.vertex]; //Alt: cur.weight
                 int distZumNachbar = nachbar.weight;
                 
                 int distInsg = distBisHier + distZumNachbar;
                 
-                if (distInsg < dist[nachbar.vertex] ) {
-                    
+                if (distInsg < dist[nachbar.vertex] ) 
+                {
                     dist[nachbar.vertex] = distInsg;
                     heap.setPriority(nachbar.vertex, distInsg);
                     
@@ -67,13 +66,11 @@ public class Dijkstra {
                 }
             }
         }
-        //Ausgabe gehört noch geprüft - besonders "predToWay"
-       
-        // pred ausgeben
+// 		  pred ausgeben
 //        String way = "";
 //        for(int i=0; i<pred.length; i++) 
 //        {
-//            way += i + " über " + pred[i] + "\n";
+//            way += i + " ueber " + pred[i] + "\n";
 //        }
         
       //Rekursions Methode unten aufrufen
@@ -82,42 +79,38 @@ public class Dijkstra {
       //Array mit IDs in Strings umwandeln und umgedreht ausgeben
       	String way = "";
       	int sum=0;
-      	for (int i = wayArray.size()-1; i >= 0; i--) {
+      	for (int i = wayArray.size()-1; i >= 0; i--) 
+      	{
       		if(i == 0) 
       		{
       			way += gl.translateID(wayArray.get(i)) + " : Gesamt(" + sum + ")";
       		}
-      		else {
+      		else 
+      		{
       			way += gl.translateID(wayArray.get(i)) + " -("+graph.getEdgeWeight(wayArray.get(i), wayArray.get(i-1)) + ")-> ";
       			sum += graph.getEdgeWeight(wayArray.get(i), wayArray.get(i-1));
       		}
       		
       	}
-        
-        // Way ausgeben
-        /*System.out.println();
-        ArrayList<Integer> way = predToWay(pred,start, ziel);
-        for(int vertexNumber: way) 
-        {
-            System.out.print(vertexNumber + " ");
-        }
-        System.out.println();*/
-        
         return way;   
     }
     
 	//Gefundenen Weg in eine Array packen von Ziel zum Start
 	private ArrayList<Integer> way = new ArrayList<>();
-	private ArrayList<Integer> findWay(int[] pred,int current, int start, int ziel) {
-			if(current == ziel) {
+	private ArrayList<Integer> findWay(int[] pred,int current, int start, int ziel) 
+	{
+			if(current == ziel) 
+			{
 				way.add(ziel);
 				findWay(pred, pred[current], start, ziel);
 			}
-			else if(current == start) {
+			else if(current == start) 
+			{
 				way.add(start);
 				return way;
 			}
-			else if(current != start) {
+			else if(current != start) 
+			{
 				way.add(current);
 				findWay(pred, pred[current], start, ziel);
 			}

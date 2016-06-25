@@ -6,14 +6,16 @@ import java.util.List;
 import com.campus02.ald.datastructures.ListGraph;
 import com.campus02.ald.datastructures.WeightedEdge;
 
-public class Tiefensuche {
+public class Tiefensuche 
+{
 	
 	private int start;
 	private int ziel;
 	private ListGraph graph; //war mal nur "g"
 	private GraphLoader gl=new GraphLoader();
 	
-	public Tiefensuche(int start, int ziel, GraphLoader gl) {
+	public Tiefensuche(int start, int ziel, GraphLoader gl) 
+	{
 		super();
 		this.start = start;
 		this.ziel = ziel;
@@ -21,9 +23,8 @@ public class Tiefensuche {
 	}
 	
 	
-	public String findByTiefenSucheRekursiv() {
-		
-		//Stack verwenden?
+	public String findByTiefenSucheRekursiv() 
+	{
 		boolean[] visited = new boolean[graph.numVertices()];
 		int[] pred = new int[graph.numVertices()];
 		
@@ -31,6 +32,7 @@ public class Tiefensuche {
 		{
 			pred[i]=-1;
 		}
+		
 		_findByTiefenSucheRekursiv(start, ziel, visited, pred);
 		
 		//Rekursions Methode unten aufrufen
@@ -38,38 +40,31 @@ public class Tiefensuche {
 		
 		//Array mit IDs in Strings umwandeln und umgedreht ausgeben
 		String way = "";
-		for (int i = wayArray.size()-1; i >= 0; i--) {
+		for (int i = wayArray.size()-1; i >= 0; i--) 
+		{
 			if(i == 0) 
 			{
 				way += gl.translateID(wayArray.get(i));
 			}
-			else {
+			else 
+			{
 				way += gl.translateID(wayArray.get(i)) + " -> ";
 			}
 		}
 		return way;
-		
-//		for(int i=0; i<pred.length; i++) 
-//		{
-//			if(pred[i]!=-1)
-//			{
-//				wegID+=i + " ueber " + pred[i] + " \n";
-//				weg+=gl.translateID(i)+" ueber " + gl.translateID(pred[i]) + " \n";
-//			}
-//		}
-//		return weg+"\n"+wegID;
 	}
 	
-	
-	private boolean _findByTiefenSucheRekursiv(int current, int nach, boolean[] visited, int[] pred) {
+	private boolean _findByTiefenSucheRekursiv(int current, int nach, boolean[] visited, int[] pred) 
+	{
 		if (current == nach) return true;
 	
 		visited[current] = true;
 		
 		List<WeightedEdge> nachbarn = graph.getEdges(current);
-		for(WeightedEdge n: nachbarn) {
-			
-			if (!visited[n.vertex]) {
+		for(WeightedEdge n: nachbarn) 
+		{
+			if (!visited[n.vertex]) 
+			{
 				pred[n.vertex] = current;
 				
 				boolean found = _findByTiefenSucheRekursiv(n.vertex, nach, visited, pred);
@@ -81,16 +76,20 @@ public class Tiefensuche {
 	
 	//Gefundenen Weg in eine Array packen von Ziel zum Start
 	private ArrayList<Integer> way = new ArrayList<>();
-	private ArrayList<Integer> findWay(int[] pred,int current, int start, int ziel) {
-			if(current == ziel) {
+	private ArrayList<Integer> findWay(int[] pred,int current, int start, int ziel) 
+	{
+			if(current == ziel) 
+			{
 				way.add(ziel);
 				findWay(pred, pred[current], start, ziel);
 			}
-			else if(current == start) {
+			else if(current == start) 
+			{
 				way.add(start);
 				return way;
 			}
-			else if(current != start) {
+			else if(current != start) 
+			{
 				way.add(current);
 				findWay(pred, pred[current], start, ziel);
 			}

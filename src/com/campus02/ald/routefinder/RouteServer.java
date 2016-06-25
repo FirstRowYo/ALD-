@@ -4,27 +4,29 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class RouteServer {
+public class RouteServer 
+{
 
-	public static void main(String[] args) {
-		
+	public static void main(String[] args) 
+	{
 		GraphLoader gl = new GraphLoader();
 		gl.printTrees();
 		try (
 			ServerSocket server = new ServerSocket(1111);
-			) {
-			while(true) {
+			) 
+		{
+			while(true) 
+			{
 				Socket client = server.accept();
 				ProcessClient pc = new ProcessClient(client,gl);
 				
 				Thread t = new Thread(pc);
 				t.start();
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (IOException e) 
+		{
 			e.printStackTrace();
 		}
-
 	}
-
 }
