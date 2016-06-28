@@ -4,8 +4,8 @@ public class Demo {
 
 	public static void main(String[] args) {
 		
-		int start=1;
-		int ziel =5;
+		int start=4;
+		int ziel =1;
 		
 		GraphLoader gl = new GraphLoader();
 

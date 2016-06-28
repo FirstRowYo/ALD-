@@ -6,10 +6,10 @@ import java.util.List;
 public class ListGraph extends Graph 
 {
 	private ArrayList<WeightedEdge>[] graph;	//Liste der verbunden gewichteten Knoten
-	private int numVertices; 	//Anzahl der Knoten
-	private boolean directed; 	//gerichtet oder nicht, werden wir nicht verwenden
-	
-	@SuppressWarnings("unchecked") 	//Konstruktor
+	private int numVertices; 					//Anzahl der Knoten
+	private boolean directed; 					//gerichtet oder nicht, werden wir nicht verwenden
+									 
+	@SuppressWarnings("unchecked") 				//Konstruktor
 	public ListGraph(int numVertices, boolean directed) 
 	{
 		graph = new ArrayList[numVertices];
@@ -32,13 +32,13 @@ public class ListGraph extends Graph
 	{
 		for (int i=0; i < graph[u].size(); i++) 
 		{//array an der position zb.: 0 hat eine groesse von 3
-			if (graph[u].get(i).vertex == v)
+			if (graph[u].get(i).vertex == v)//.vertex der andere punkt auf der kante
 				return graph[u].get(i);
 		}
 		return null;
 	}
 	
-	public boolean hasEdge(int u, int v) 
+	public boolean hasEdge(int u, int v) //prüft auf ob Kante vorhanden ist
 	{
 		WeightedEdge pv = findEdge(u, v);
 		return pv != null;

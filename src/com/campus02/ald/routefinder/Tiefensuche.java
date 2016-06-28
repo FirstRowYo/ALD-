@@ -11,7 +11,7 @@ public class Tiefensuche
 	
 	private int start;
 	private int ziel;
-	private ListGraph graph; //war mal nur "g"
+	private ListGraph graph; //war mal nur "g."
 	private GraphLoader gl=new GraphLoader();
 	
 	public Tiefensuche(int start, int ziel, GraphLoader gl) 

@@ -41,7 +41,7 @@ public class VertexHeap
 		
 		private int prio(int pos) 
 		{
-			return pvertex[pos].weight;
+			return pvertex[pos].weight;// gewicht des vorherigen Knotens wird zurueck geliefert
 		}
 		
 		private void exchange(int pos1, int pos2) 
@@ -97,11 +97,11 @@ public class VertexHeap
 			r = right(pos);
 			
 			min = l;
-			if (exists(r) && prio(r) < prio(l)) 
+			if (exists(r) && prio(r) < prio(l)) //pruefung ob rechts existiert und kleiner als links
 			{
-				min = r;
+				min = r;//wenn ja rechts ist kleiner als links
 			}
-			return min;
+			return min;// rechts
 		}
 		
 		private boolean hasChilds(int pos) 
@@ -123,7 +123,7 @@ public class VertexHeap
 			return (count == 0);
 		}
 
-		public boolean insert(WeightedEdge pv) 
+		public boolean insert(WeightedEdge pv) // fuegt ein und liefert true oder false zurueck
 		{
 			if (isFull())
 				return false;
@@ -153,14 +153,14 @@ public class VertexHeap
 		{
 			for (int i=1; i <= count; i++) 
 			{
-				if (pvertex[i].vertex == vertex) 
+				if (pvertex[i].vertex == vertex) 	//pruefung ob pv[i] denn selben wert hat wie vertex
 				{
-					int oldprio = pvertex[i].weight;
-					pvertex[i].weight = value;
-					if (value < oldprio)
-						swim(i);
+					int oldprio = pvertex[i].weight;//alte prio ist gewecht vom letzten Vertex
+					pvertex[i].weight = value;		//pv[i] bekommt den neuen wert
+					if (value < oldprio)			//wenn der neue wert kleiner ist als der alte
+						swim(i);					//dann swim
 					else
-						sink(i);
+						sink(i);					//sonst sink
 					break;
 				}
 			}

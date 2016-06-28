@@ -9,15 +9,13 @@ import com.campus02.ald.datastructures.WeightedEdge;
 
 public class Breitensuche 
 {
-	
 	private int start;
 	private int ziel;
-	private ListGraph graph; //war mal nur "g"
+	private ListGraph graph; //war mal nur "g."
 	private GraphLoader gl = new GraphLoader();
 	
 	public Breitensuche(int start, int ziel, GraphLoader gl) 
-	{
-		super();
+	{//war mal super :D
 		this.start = start;
 		this.ziel = ziel;
 		this.graph = gl.getGraph();
@@ -33,27 +31,27 @@ public class Breitensuche
 		
 		for(int i=0; i<pred.length; i++)
 		{
-			pred[i] = -1; 
+			pred[i] = -1;
 		}
 		
-		nodes.add(start);
+		nodes.add(start); //fuegt den startknoten in die Queue ein.
 		
-		outer: while(!nodes.isEmpty())
+		outer: while(!nodes.isEmpty()) //solange queue nicht leer
 		{
-			int current = nodes.poll();
+			int current = nodes.poll();//holt den ersten Knoten aus der quque
 			visited[current] = true;
 		
-			List<WeightedEdge> nachbarn = graph.getEdges(current);
+			List<WeightedEdge> nachbarn = graph.getEdges(current);//liste bekommt die Edges vom Currentnode
 			for(WeightedEdge nachbar: nachbarn)
 			{
-				if (!visited[nachbar.vertex])
+				if (!visited[nachbar.vertex])		//wenn nicht besucht
 				{
-					nodes.add(nachbar.vertex);
-					pred[nachbar.vertex] = current;
-					
-					if (nachbar.vertex == ziel)
+					nodes.add(nachbar.vertex);		//add zielnode
+					pred[nachbar.vertex] = current; //naechtes Node bist du
+					visited[nachbar.vertex] = true; //Setzt den Nachbarknoten auf besucht um Umwege zu verhindern
+					if (nachbar.vertex == ziel)		//wenn nachbar = Ziel 
 					{
-						found = true;
+						found = true;				//dann gefunden
 						break outer;
 					}
 				}
