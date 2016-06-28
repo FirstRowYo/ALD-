@@ -44,7 +44,7 @@ public class Dijkstra
         
         while(!heap.isEmpty()) 
         {
-            WeightedEdge cur = heap.remove();
+            WeightedEdge cur = heap.remove(); // Setzt den min heap wert auf cur 
             
             if (cur.vertex == ziel) break;
             
