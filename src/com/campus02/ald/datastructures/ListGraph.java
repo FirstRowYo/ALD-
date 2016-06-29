@@ -14,7 +14,7 @@ public class ListGraph extends Graph
 	{
 		graph = new ArrayList[numVertices];
 		
-		//Legen Arrays an die bei 0 beginnen aber die IDs beginnen bei 1 wenn de ID's mit 1 beginnen würden, würden wir einen out of bounds erreichen 
+		//Legen Arrays an die bei 0 beginnen aber die IDs beginnen bei 1 wenn de ID's mit 1 beginnen wï¿½rden, wï¿½rden wir einen out of bounds erreichen 
 		for (int i=0; i < numVertices; i++)
 			graph[i] = new ArrayList<WeightedEdge>();	//i* leere ArrayList vom Typ WeigthedEdge initalisiert
 		this.numVertices = numVertices;
@@ -38,26 +38,32 @@ public class ListGraph extends Graph
 		return null;
 	}
 	
-	public boolean hasEdge(int u, int v) //prüft auf ob Kante vorhanden ist
+	public boolean hasEdge(int u, int v) //prï¿½ft auf ob Kante vorhanden ist
 	{
 		WeightedEdge pv = findEdge(u, v);
 		return pv != null;
 	}
 	
-	public int getEdgeWeight(int u, int v) 
+	public int getEdgeWeight(int u, int v) //gibt Kantengewicht zurÃ¼ck
 	{
 		WeightedEdge pv = findEdge(u, v);
 		return pv.weight;
 	}
 	
+	public int getEdgeMaut(int u, int v) //gibt Kantenmaut zurÃ¼ck
+	{
+		WeightedEdge pv = findEdge(u, v);
+		return pv.mautkosten;
+	}
+	
 	public void addEdge(int u, int v) 
 	{
-		addEdge(u, v, 1, false, 0); // wenn nur start und Ziel angegeben wird angenommen das es sich nicht um eine Mautstraße handelt
+		addEdge(u, v, 1, false, 0); // wenn nur start und Ziel angegeben wird angenommen das es sich nicht um eine Mautstraï¿½e handelt
 	}
 	
 	public void addEdge(int u, int v, int weight)  
 	{
-		addEdge(u, v, weight, false, 0); // wenn nur start und Ziel angegeben wird angenommen das es sich nicht um eine Mautstraße handelt
+		addEdge(u, v, weight, false, 0); // wenn nur start und Ziel angegeben wird angenommen das es sich nicht um eine Mautstraï¿½e handelt
 	}
 	
 	//neuen Weg zu einem Knoten hinzufuegen

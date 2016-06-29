@@ -16,15 +16,14 @@ public class Dijkstra
 	private ListGraph graph; 
 	private GraphLoader gl = new GraphLoader();
 	private boolean maut;
-	private ProcessClient m=null;
 	
-	public Dijkstra(int start, int ziel, GraphLoader gl) 
+	public Dijkstra(int start, int ziel, GraphLoader gl, boolean maut) 
 	{
 		super();
 		this.start = start;
 		this.ziel = ziel;
 		this.graph = gl.getGraph();
-		this.maut = false;
+		this.maut = maut;
 	}
 
 
@@ -87,16 +86,18 @@ public class Dijkstra
       //Array mit IDs in Strings umwandeln und umgedreht ausgeben
       	String way = "";
       	int sum=0;
+      	int maut=0;
       	for (int i = wayArray.size()-1; i >= 0; i--) 
       	{
       		if(i == 0) 
       		{
-      			way += gl.translateID(wayArray.get(i)) + " : Gesamt(" + sum + ")";
+      			way += gl.translateID(wayArray.get(i)) + " : Gesamt(" + sum + ") Maut(" + maut + ")";
       		}
       		else 
       		{
       			way += gl.translateID(wayArray.get(i)) + " -("+graph.getEdgeWeight(wayArray.get(i), wayArray.get(i-1)) + ")-> ";
       			sum += graph.getEdgeWeight(wayArray.get(i), wayArray.get(i-1));
+      			maut += graph.getEdgeMaut(wayArray.get(i), wayArray.get(i-1));
       		}
       		
       	}

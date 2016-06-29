@@ -19,7 +19,7 @@ public class Demo {
 		
 		System.out.println();
 		
-		Dijkstra d = new Dijkstra(start, ziel, gl);
+		Dijkstra d = new Dijkstra(start, ziel, gl, true);
 		System.out.println(d.findByDijkstra());
 		
 	}	

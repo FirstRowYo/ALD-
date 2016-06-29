@@ -60,7 +60,7 @@ public class ProcessClient implements Runnable
 						}
 						else if(Integer.parseInt(array[2]) == 3) 
 						{
-							Dijkstra d = new Dijkstra(start, ziel, gl);
+							Dijkstra d = new Dijkstra(start, ziel, gl, true); //Maut boolena wird manuell gesetzt derzeit
 							String weg = d.findByDijkstra();
 							pw.println(weg);
 							pw.flush();
