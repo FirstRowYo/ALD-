@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.campus02.ald.datastructures.AvlTree;
 import com.campus02.ald.datastructures.BaseTree;
 import com.campus02.ald.datastructures.ListGraph;
 import com.campus02.ald.datastructures.WeightedEdge;
@@ -96,7 +97,7 @@ public class GraphLoader
 	
 	//Build tree--------------------------------------------------------------------------------
 	
-	private BaseTree<Integer,String> ctree = new BaseTree<Integer,String>() 
+	private AvlTree<Integer,String> ctree = new AvlTree<Integer,String>() //Wenn BaseTree Verwendet dann BaseTree statt AVL Tree 
 	{
 		@Override
 		protected int compareKey(Integer a, Integer b) 
@@ -115,7 +116,7 @@ public class GraphLoader
 		}
 	};
 			
-	private BaseTree<String, Integer> stree = new BaseTree<String, Integer>() 
+	private AvlTree<String, Integer> stree = new AvlTree<String, Integer>() 
 	{
 		@Override
 		protected int compareKey(String a, String b) 
@@ -138,6 +139,7 @@ public class GraphLoader
 	{
 		try (BufferedReader br = new BufferedReader(new FileReader(file));)
 		{
+			
 			String line;
 			Integer counter = -1;// ist dafür verantwortlich das die ID's mit 0 starten
 			while ((line=br.readLine())!=null)
@@ -148,8 +150,8 @@ public class GraphLoader
 				{
 					counter++; //weil bereits hier um eines erhöht wird
 				}
-				ctree.add(counter,node);
-				stree.add(node, counter);
+				ctree.insert(counter,node); //Bei BaseTree add statt insert
+				stree.insert(node, counter);//Bei BaseTree add statt insert
 			}
 		} 
 		catch (IOException e) 

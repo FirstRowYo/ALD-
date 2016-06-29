@@ -1,10 +1,13 @@
 package com.campus02.ald.datastructures;
 
 import java.util.ArrayList;
-
-public class AvlTree {
+@SuppressWarnings({ "rawtypes", "unchecked" })
+public abstract class AvlTree<Key,Value>  {
  
-protected AvlNode root; // the root node
+protected AvlNode<Key,Value>  root; // the root node
+
+protected abstract int compareKey(Key a, Key b);
+protected abstract int compareValue(Value a, Value b);
  
 /***************************** Core Functions ************************************/
 
@@ -14,9 +17,9 @@ protected AvlNode root; // the root node
   * @param k
   *            The key of the new node.
   */
- public void insert(int k) {
+ public void insert(Key k, Value v) {
   // create new node
-  AvlNode n = new AvlNode(k);
+  AvlNode n = new AvlNode(k,v);
   // start recursive procedure for inserting the node
   insertAVL(this.root,n);
  }
@@ -29,12 +32,15 @@ protected AvlNode root; // the root node
   */
  public void insertAVL(AvlNode p, AvlNode q) {
   // If  node to compare is null, the node is inserted. If the root is null, it is the root of the tree.
-  if(p==null) {
+	 
+  if(p==null) 
+  {
    this.root=q;
-  } else {
-   
+  } 
+  else {
+	  int vgl = compareValue((Value)q.getValue(),(Value) p.getValue());
    // If compare node is smaller, continue with the left node
-   if(q.key<p.key) {
+   if(vgl < 0) {
     if(p.left==null) {
      p.left = q;
      q.parent = p;
@@ -45,7 +51,7 @@ protected AvlNode root; // the root node
      insertAVL(p.left,q);
     }
     
-   } else if(q.key>p.key) {
+   } else if(vgl > 0) {
     if(p.right==null) {
      p.right = q;
      q.parent = p;
@@ -93,96 +99,11 @@ protected AvlNode root; // the root node
    recursiveBalance(cur.parent);
   } else {
    this.root = cur;
-   System.out.println("------------ Balancing finished ----------------");
+   //System.out.println("------------ Balancing finished ----------------");
   }
  }
 
- /**
-  * Removes a node from the tree, if it is existent.
-  */
- public void remove(int k) {
-  // First we must find the node, after this we can delete it.
-  removeAVL(this.root,k);
- }
- 
- /**
-  * Finds a node and calls a method to remove the node.
-  * 
-  * @param p The node to start the search.
-  * @param q The KEY of node to remove.
-  */
- public void removeAVL(AvlNode p,int q) {
-  if(p==null) {
-   // der Wert existiert nicht in diesem Baum, daher ist nichts zu tun
-   return;
-  } else {
-   if(p.key>q)  {
-    removeAVL(p.left,q);
-   } else if(p.key<q) {
-    removeAVL(p.right,q);
-   } else if(p.key==q) {
-    // we found the node in the tree.. now lets go on!
-    removeFoundNode(p);
-   }
-  }
- }
- 
- /**
-  * Removes a node from a AVL-Tree, while balancing will be done if necessary.
-  * 
-  * @param q The node to be removed.
-  */
- public void removeFoundNode(AvlNode q) {
-  AvlNode r;
-  // at least one child of q, q will be removed directly
-  if(q.left==null || q.right==null) {
-   // the root is deleted
-   if(q.parent==null) {
-    this.root=null;
-    q=null;
-    return;
-   }
-   r = q;
-  } else {
-   // q has two children --> will be replaced by successor
-   r = successor(q);
-   q.key = r.key;
-  }
-  
-  AvlNode p;
-  if(r.left!=null) {
-   p = r.left;
-  } else {
-   p = r.right;
-  }
-  
-  if(p!=null) {
-   p.parent = r.parent;
-  }
-  
-  if(r.parent==null) {
-   this.root = p;
-  } else {
-   if(r==r.parent.left) {
-    r.parent.left=p;
-   } else {
-    r.parent.right = p;
-   }
-   // balancing must be done until the root is reached.
-   recursiveBalance(r.parent);
-  }
-  r = null;
- }
- 
- /**
-  * Left rotation using the given node.
-  * 
-  * 
-  * @param n
-  *            The node for the rotation.
-  * 
-  * @return The root of the rotated tree.
-  */
+
  public AvlNode rotateLeft(AvlNode n) {
   
   AvlNode v = n.right;
@@ -324,34 +245,6 @@ protected AvlNode root; // the root node
   }
  }
 
- /** 
-  * Only for debugging purposes. Gives all information about a node.
-  
-  * @param n The node to write information about.
-  */
- public void debug(AvlNode n) {
-  int l = 0;
-  int r = 0;
-  int p = 0;
-  if(n.left!=null) {
-   l = n.left.key;
-  }
-  if(n.right!=null) {
-   r = n.right.key;
-  }
-  if(n.parent!=null) {
-   p = n.parent.key;
-  }
-  
-  System.out.println("Left: "+l+" Key: "+n+" Right: "+r+" Parent: "+p+" Balance: "+n.balance);
-  
-  if(n.left!=null) {
-   debug(n.left);
-  }
-  if(n.right!=null) {
-   debug(n.right);
-  }
- }
  
  private void setBalance(AvlNode cur) {
   cur.balance = height(cur.right)-height(cur.left);
@@ -384,4 +277,215 @@ protected AvlNode root; // the root node
   io.add(n);
   inorder(n.right, io);
  }
+ 
+ public void printTree() 
+	{
+		printTree(root, "");
+	}
+	
+	/**
+	 * Funktion zur Ausgabe des Baums unterhalb eines Knotens
+	 * @param current Knoten, dessen Teilbaum ausgegeben werden soll
+	 * @param prefix  Zur Einrückung
+	 */
+	public void printTree(AvlNode<Key,Value> current, String prefix) 
+	{
+		if (current == null) 
+		{
+			return;
+		}
+		System.out.println(prefix + current.getValue() + current.getKey());
+		printTree(current.left, prefix + " L ");
+		printTree(current.right, prefix + " R ");
+	}
+	
+
+	public void add(Key key,Value value) 
+	{
+		AvlNode<Key,Value> neu = new AvlNode<Key,Value>(key, value);
+		if (root == null) 						// Fall 1: Baum ist leer
+		{
+			root = neu;
+			return;
+		}
+		AvlNode<Key,Value> node = root;			// Fall 2: Baum ist nicht leer
+		while (true) 
+		{
+			int vgl = compareValue(value,node.getValue());
+			if (vgl < 0) {						// kleiner
+				if (node.getLeft() == null) 
+				{
+					node.setLeft(neu);
+					neu.setParent(node);
+					return;
+				}
+				node = node.getLeft();
+			}
+			else if (vgl > 0) 					// größer
+			{
+				if (node.getRight() == null) 
+				{
+					node.setRight(neu);
+					neu.setParent(node);
+					return;
+				}
+				node = node.getRight();
+			}
+			else 
+			{								// gleich (nicht nochmal einfügen)
+				return;
+			}
+		}
+	}
+	
+	public AvlNode<Key,Value> find(Value needle) 
+	{
+		return find(root, needle);
+	}
+	
+	/**
+	 * Element in Teilbaum finden (startet bei current-Node)
+	 * @param current Startknoten
+	 * @param needle  Zu suchendes Element
+	 * @return Knoten des Elements
+	 */
+	
+	public AvlNode<Key,Value> find(AvlNode<Key,Value> current, Value needle) 
+	{
+		if (current == null) 
+		{
+			return null;
+		}
+		int vgl = compareValue(needle, current.getValue());
+		if (vgl == 0) 
+		{					// Gefunden
+			return current;
+		}
+		else if (vgl < 0) 
+		{					// Links
+			return find(current.getLeft(), needle);
+		}
+		else 
+		{					// Rechts
+			return find(current.getRight(), needle);
+		}
+	}
+
 }
+/**
+ * Removes a node from the tree, if it is existent.
+ */
+//public void remove(int k) {
+ // First we must find the node, after this we can delete it.
+// removeAVL(this.root,k);
+//}
+
+/**
+ * Finds a node and calls a method to remove the node.
+ * 
+ * @param p The node to start the search.
+ * @param q The KEY of node to remove.
+ */
+/*public void removeAVL(AvlNode p,int q) {
+ if(p==null) {
+  // der Wert existiert nicht in diesem Baum, daher ist nichts zu tun
+  return;
+ } else {
+  if(((p.key).compareTo(q)) > 0)  {
+   removeAVL(p.left,q);
+  } else if((p.key.compareTo(q)) < 0) {
+   removeAVL(p.right,q);
+  } else if((p.key.compareTo(q)) == 0) {
+   // we found the node in the tree.. now lets go on!
+   removeFoundNode(p);
+  }
+ }
+}
+
+/**
+ * Removes a node from a AVL-Tree, while balancing will be done if necessary.
+ * 
+ * @param q The node to be removed.
+ */
+/*
+public void removeFoundNode(AvlNode q) {
+ AvlNode r;
+ // at least one child of q, q will be removed directly
+ if(q.left==null || q.right==null) {
+  // the root is deleted
+  if(q.parent==null) {
+   this.root=null;
+   q=null;
+   return;
+  }
+  r = q;
+ } else {
+  // q has two children --> will be replaced by successor
+  r = successor(q);
+  q.key = r.key;
+ }
+ 
+ AvlNode p;
+ if(r.left!=null) {
+  p = r.left;
+ } else {
+  p = r.right;
+ }
+ 
+ if(p!=null) {
+  p.parent = r.parent;
+ }
+ 
+ if(r.parent==null) {
+  this.root = p;
+ } else {
+  if(r==r.parent.left) {
+   r.parent.left=p;
+  } else {
+   r.parent.right = p;
+  }
+  // balancing must be done until the root is reached.
+  recursiveBalance(r.parent);
+ }
+ r = null;
+}
+
+/**
+ * Left rotation using the given node.
+ * 
+ * 
+ * @param n
+ *            The node for the rotation.
+ * 
+ * @return The root of the rotated tree.
+ */
+/** 
+ * Only for debugging purposes. Gives all information about a node.
+ 
+ * @param n The node to write information about.
+ */
+/*
+ public void debug(AvlNode n) {
+ int l = 0;
+ int r = 0;
+ int p = 0;
+ if(n.left!=null) {
+  l = n.left.key;
+ }
+ if(n.right!=null) {
+  r = n.right.key;
+ }
+ if(n.parent!=null) {
+  p = n.parent.key;
+ }
+ 
+ System.out.println("Left: "+l+" Key: "+n+" Right: "+r+" Parent: "+p+" Balance: "+n.balance);
+ 
+ if(n.left!=null) {
+  debug(n.left);
+ }
+ if(n.right!=null) {
+  debug(n.right);
+ }
+}
+*/
