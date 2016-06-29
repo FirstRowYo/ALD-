@@ -15,6 +15,8 @@ public class Dijkstra
 	private int ziel;
 	private ListGraph graph; 
 	private GraphLoader gl = new GraphLoader();
+	private boolean maut;
+	private ProcessClient m=null;
 	
 	public Dijkstra(int start, int ziel, GraphLoader gl) 
 	{
@@ -22,8 +24,10 @@ public class Dijkstra
 		this.start = start;
 		this.ziel = ziel;
 		this.graph = gl.getGraph();
+		this.maut = false;
 	}
-	
+
+
 	public String findByDijkstra()
 	{
 		
@@ -31,11 +35,11 @@ public class Dijkstra
 		int[] dist = new int[graph.numVertices()];
 		boolean[] visited = new boolean[graph.numVertices()];
 		
-		VertexHeap heap = new VertexHeap(graph.numVertices()); //eigen Heapklasse für Prioritätsvergabe nach Gewichtung
+		VertexHeap heap = new VertexHeap(graph.numVertices()); //eigen Heapklasse fuer Prioritaetsvergabe nach Gewichtung
 		for(int i=0; i<dist.length; i++)
 		{
 			dist[i] = 99999;
-			heap.insert(new WeightedEdge(i, 999999));
+			heap.insert(new WeightedEdge(i, 999999, false, i));
 			pred[i] = 1;
 		}
 		
@@ -52,6 +56,10 @@ public class Dijkstra
             
             for(WeightedEdge nachbar: nachbarn) 
             {
+            	if ((nachbar.maut == true)&& !(maut == true))
+            	{
+            		continue;//wenn der nachbar eine maut hat und maut auf true ist dann geh weiter
+            	}
                 int distBisHier = dist[cur.vertex]; //Alt: cur.weight
                 int distZumNachbar = nachbar.weight;
                 

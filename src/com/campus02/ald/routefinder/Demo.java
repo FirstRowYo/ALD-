@@ -4,7 +4,7 @@ public class Demo {
 
 	public static void main(String[] args) {
 		
-		int start=4;
+		int start=0;
 		int ziel =1;
 		
 		GraphLoader gl = new GraphLoader();

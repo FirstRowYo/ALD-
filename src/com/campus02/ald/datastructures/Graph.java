@@ -11,7 +11,7 @@ public abstract class Graph
 	public abstract boolean hasEdge(int u, int v);
 	public abstract WeightedEdge findEdge(int u, int v);
 	public abstract void addEdge(int u, int v);
-	public abstract void addEdge(int u, int v, int weight);
+	public abstract void addEdge(int u, int v, int weight,boolean maut, int mautkosten);
 	public abstract void removeEdge(int u, int v);
 	public abstract List<WeightedEdge> getEdges(int v);
 }

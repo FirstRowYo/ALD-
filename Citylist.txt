@@ -1,8 +1,8 @@
-Graz;Wien;200
+Graz;Wien;200;true;20
 Graz;Linz;200
 Graz;Klagenfurt;100
 Wien;Linz;100
-Wien;Graz;200
+Wien;Graz;200;true;20
 Linz;Graz;200
 Linz;Wien;100
 Linz;Salzburg;100

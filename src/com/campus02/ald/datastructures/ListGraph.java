@@ -52,13 +52,18 @@ public class ListGraph extends Graph
 	
 	public void addEdge(int u, int v) 
 	{
-		addEdge(u, v, 1);
+		addEdge(u, v, 1, false, 0); // wenn nur start und Ziel angegeben wird angenommen das es sich nicht um eine Mautstraﬂe handelt
+	}
+	
+	public void addEdge(int u, int v, int weight)  
+	{
+		addEdge(u, v, weight, false, 0); // wenn nur start und Ziel angegeben wird angenommen das es sich nicht um eine Mautstraﬂe handelt
 	}
 	
 	//neuen Weg zu einem Knoten hinzufuegen
-	public void addEdge(int u, int v, int weight) 
+	public void addEdge(int u, int v, int weight, boolean maut, int mautkosten) 
 	{
-		WeightedEdge pv = new WeightedEdge(v, weight);
+		WeightedEdge pv = new WeightedEdge(v, weight,maut,mautkosten);
 		graph[u].add(pv);
 //Wir geben im File die Rueckwege an. Wenn wir das aktivieren dann darf das File keine doppelten Wege haben.
 //		if (!directed) 
@@ -84,4 +89,5 @@ public class ListGraph extends Graph
 	{
 		return graph[v];
 	}
+	
 }

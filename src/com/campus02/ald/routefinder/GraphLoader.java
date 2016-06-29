@@ -49,8 +49,20 @@ public class GraphLoader
 				String[] array = line.split(";");
 				int idStart = ctree.find(array[0]).getKey(); //findet Start Knoten ID
 				int idZiel = ctree.find(array[1]).getKey(); //findet Ziel Knoten ID
+				if (array.length == 3)
+				{
 				graph.addEdge(idStart, idZiel, Integer.parseInt(array[2])); //fuegen Verbindung ein in Graph
-			}
+				}
+				if (array.length == 5)
+				{
+				graph.addEdge(idStart, idZiel, Integer.parseInt(array[2]),Boolean.valueOf(array[3]),Integer.parseInt(array[4])); //fuegen Verbindung ein in Graph
+				}
+				if (array.length == 4)
+				{
+				graph.addEdge(idStart, idZiel, Integer.parseInt(array[2]),Boolean.valueOf(array[3]),1); //fuegen Verbindung ein in Graph
+				}
+				
+				}
 		} 
 		catch (IOException e) 
 		{

@@ -12,6 +12,7 @@ public class ProcessClient implements Runnable
 
 	private Socket client;
 	private GraphLoader gl;
+	public boolean maut=true;
 	
 	public ProcessClient(Socket client,GraphLoader gl) 
 	{
@@ -35,13 +36,14 @@ public class ProcessClient implements Runnable
 			while((line=br.readLine()) != null) 
 			{
 				String[] array = line.split(" ");
-				
-				if(array.length == 3) 
+								
+				if(array.length == 3)
 				{	
 					if ((checkNode(array[0],array[1])) != 0)
 					{
 						int start = gl.translateString(array[0]);
-						int ziel = gl.translateString(array[1]);
+						int ziel = gl.translateString(array[1]);			
+						
 						if(Integer.parseInt(array[2]) == 1) //array[2] Possition der Suchmethoden auswahl
 						{
 							Tiefensuche t = new Tiefensuche(start, ziel, gl);
