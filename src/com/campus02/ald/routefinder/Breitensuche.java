@@ -82,6 +82,7 @@ public class Breitensuche
 		}
 		else
 		{
+			
 			return "Keine Verbindung gefunden";
 		}
 

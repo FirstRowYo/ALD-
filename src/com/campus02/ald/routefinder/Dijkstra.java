@@ -97,7 +97,7 @@ public class Dijkstra
       		{
       			way += gl.translateID(wayArray.get(i)) + " -("+graph.getEdgeWeight(wayArray.get(i), wayArray.get(i-1)) + ")-> ";
       			sum += graph.getEdgeWeight(wayArray.get(i), wayArray.get(i-1));
-      			maut += graph.getEdgeMaut(wayArray.get(i), wayArray.get(i-1));
+      			maut += graph.getEdgeMaut(wayArray.get(i), wayArray.get(i-1));//zaehlung maut
       		}
       		
       	}
